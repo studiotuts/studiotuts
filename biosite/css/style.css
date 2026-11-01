@@ -1,0 +1,269 @@
+/* ==========================================================
+   BIOSITE STUDIO TUTS — Estilos
+   ========================================================== */
+
+:root {
+  --bg: #070707;
+  --surface: #121212;
+  --surface-hover: #181818;
+  --text: #fdfbf9;
+  --line: rgba(253, 251, 249, 0.35);
+  --line-faint: rgba(253, 251, 249, 0.14);
+
+  --font: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Escala fluida: mobile primeiro, cresce de forma proporcional */
+  --content: min(100% - 2 * var(--gutter), 720px);
+  --gutter: clamp(20px, 6vw, 40px);
+  --gap: clamp(22px, 4.2vw, 36px);
+  --radius: clamp(18px, 3.4vw, 26px);
+  --btn-h: clamp(62px, 11vw, 84px);
+  --icon: clamp(34px, 7vw, 46px);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a { color: inherit; text-decoration: none; }
+img, video, svg { display: block; }
+
+/* ---------- Estrutura ---------- */
+.page {
+  flex: 1;
+  width: var(--content);
+  margin: 0 auto;
+  padding: clamp(28px, 6vw, 56px) 0 clamp(48px, 9vw, 88px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* No celular as colunas não existem: os itens seguem a ordem
+   logo → frase → vídeo → redes sociais → botões */
+.col { display: contents; }
+.brand    { order: 1; }
+.headline { order: 2; }
+.banner   { order: 3; }
+.social   { order: 4; }
+.actions  { order: 5; }
+
+/* ---------- A. Logotipo ---------- */
+.brand { display: flex; justify-content: center; }
+.brand__title { margin: 0; line-height: 0; }
+.brand__logo {
+  width: clamp(220px, 52vw, 380px);
+  height: auto;
+}
+
+/* ---------- B. Frase de impacto ---------- */
+.headline {
+  margin: clamp(4px, 1.5vw, 12px) 0 0;
+  display: flex;
+  flex-direction: column;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 12.5vw, 5.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+/* ---------- C. Banner / vídeo ---------- */
+.banner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  /* Mantém o recorte arredondado no Safari durante a reprodução */
+  isolation: isolate;
+  transform: translateZ(0);
+}
+.banner__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--surface);
+  pointer-events: none;
+}
+.banner__video::-webkit-media-controls,
+.banner__video::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
+
+/* ---------- D. Redes sociais ---------- */
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 4vw, 28px);
+}
+.social__link {
+  display: grid;
+  place-items: center;
+  width: calc(var(--icon) + 20px);
+  height: calc(var(--icon) + 20px);
+  border-radius: 14px;
+  color: var(--text);
+  transition: transform .35s cubic-bezier(.2, .8, .2, 1), opacity .35s;
+}
+.social__link svg { width: var(--icon); height: var(--icon); }
+.social__link--wide { width: calc(var(--icon) * 1.42 + 20px); }
+.social__link--wide svg { width: calc(var(--icon) * 1.42); }
+.social__divider {
+  width: 1px;
+  height: calc(var(--icon) * 1.05);
+  background: var(--line);
+}
+
+/* ---------- E. Botões ---------- */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(26px, 5vw, 36px);
+  margin-top: clamp(0px, 1vw, 8px);
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--btn-h);
+  padding: 0 20px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  /* Apenas a linha inferior, acompanhando o arredondamento dos cantos */
+  box-shadow: 0 5px 0 0 var(--text);
+  font-weight: 400;
+  font-size: clamp(1.15rem, 4.4vw, 1.6rem);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease;
+}
+
+/* ---------- Interações ---------- */
+@media (hover: hover) {
+  .social__link:hover { transform: translateY(-3px); opacity: .82; }
+  .btn:hover { background: var(--surface-hover); transform: translateY(2px); box-shadow: 0 3px 0 0 var(--text); }
+}
+.social__link:active { transform: scale(.94); }
+.btn:active { background: var(--surface-hover); transform: translateY(4px); box-shadow: 0 1px 0 0 var(--text); }
+.social__link:focus-visible,
+.btn:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+
+/* ---------- F. Rodapé ---------- */
+.footer {
+  position: relative;
+  background: var(--bg);
+  padding: clamp(26px, 5vw, 34px) var(--gutter) calc(clamp(26px, 5vw, 34px) + env(safe-area-inset-bottom));
+  text-align: center;
+}
+.footer__line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-faint) 18%, var(--line-faint) 82%, transparent);
+}
+.footer__spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140px;
+  height: 1px;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg, transparent, rgba(253, 251, 249, .9), transparent);
+  animation: spark 4.5s ease-in-out infinite;
+}
+.footer__spark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--text);
+  box-shadow: 0 0 6px 2px rgba(253, 251, 249, .75), 0 0 18px 5px rgba(253, 251, 249, .25);
+}
+.footer__text {
+  margin: 0;
+  font-size: clamp(.72rem, 2.6vw, .82rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+@keyframes spark {
+  0%, 100% { opacity: .55; width: 110px; }
+  50%      { opacity: 1;   width: 170px; }
+}
+
+/* ---------- Entrada suave ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: reveal .8s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation-delay: calc(var(--d, 0) * 90ms + 80ms);
+}
+@keyframes reveal { to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; animation: none; }
+  .footer__spark { animation: none; }
+  .btn, .social__link { transition: none; }
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width: 768px) {
+  :root { --content: min(100% - 2 * var(--gutter), 680px); }
+}
+
+/* ---------- Desktop: duas colunas ----------
+   Esquerda: logo, vídeo e redes sociais
+   Direita:  frase de impacto e botões */
+@media (min-width: 1024px) {
+  :root {
+    --content: min(100% - 2 * var(--gutter), 1240px);
+    --gutter: clamp(40px, 5vw, 72px);
+    --radius: 24px;
+    --btn-h: 80px;
+    --icon: 40px;
+  }
+  .page {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: clamp(48px, 6vw, 104px);
+    align-items: center;
+    padding-block: clamp(40px, 6vh, 72px);
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+  }
+  .col--left  { gap: clamp(24px, 3.6vh, 36px); }
+  .col--right { gap: clamp(40px, 6vh, 64px); }
+  .headline {
+    margin: 0;
+    font-size: clamp(3.6rem, 5.6vw, 6rem);
+  }
+  .actions { margin: 0; gap: 32px; }
+  .btn { font-size: clamp(1.2rem, 1.5vw, 1.45rem); }
+}
