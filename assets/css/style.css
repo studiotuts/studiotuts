@@ -152,18 +152,20 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: clamp(104px, 12.6vw, 153px);
-  padding: 0 24px;
+  align-self: center;
+  margin-right: clamp(12px, 1.6vw, 20px);
+  padding: 12px 22px;
   background: var(--grad-login);
   color: var(--branco);
   border-radius: var(--raio);
   text-decoration: none;
   text-transform: uppercase;
+  white-space: nowrap;
   font-weight: 700;
-  font-size: clamp(1rem, 1.6vw, 1.375rem);
+  font-size: clamp(.875rem, 1.2vw, 1rem);
   transition: filter .2s ease;
 }
-.nav-login:hover, .nav-login[aria-current='page'] { filter: brightness(1.35); }
+.nav-login:hover { filter: brightness(1.35); }
 
 .nav-toggle {
   display: none;
@@ -571,6 +573,7 @@ p.aviso { color: var(--branco); margin: 0; }
 @media (max-width: 900px) {
   .nav { min-height: 72px; }
   .nav-toggle { display: flex; }
+  .nav-login { padding: 9px 14px; font-size: .8rem; }
   .nav-links {
     display: none;
     position: absolute; top: calc(100% + 8px); left: 0; right: 0;
@@ -595,4 +598,19 @@ p.aviso { color: var(--branco); margin: 0; }
   .destaque-capa { min-height: 200px; }
   .servico .cartao { min-height: 150px; margin-right: 18px; }
   .rodape-grade { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .nav-logo { padding: 0 12px 0 16px; }
+  .nav-logo img { width: 116px; }
+  .nav-toggle { width: 44px; }
+  .nav-login {
+    margin-right: 10px;
+    padding: 7px 10px;
+    max-width: 92px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.15;
+    font-size: .72rem;
+  }
 }
