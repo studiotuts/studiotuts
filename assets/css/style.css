@@ -148,12 +148,19 @@ ul { margin: 0; padding: 0; list-style: none; }
 .nav-links a[aria-current='page']::after { transform: scaleX(1); }
 .nav-links a[aria-current='page'] { font-weight: 500; }
 
+/* Painel do cliente: menu suspenso com os produtos */
+.nav-painel {
+  position: relative;
+  align-self: center;
+  margin-right: clamp(12px, 1.6vw, 20px);
+}
 .nav-login {
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: center;
-  margin-right: clamp(12px, 1.6vw, 20px);
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
   padding: 12px 22px;
   background: var(--grad-login);
   color: var(--branco);
@@ -165,7 +172,34 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: clamp(.875rem, 1.2vw, 1rem);
   transition: filter .2s ease;
 }
-.nav-login:hover { filter: brightness(1.35); }
+.nav-login::-webkit-details-marker { display: none; }
+.nav-login:hover, .nav-painel[open] .nav-login { filter: brightness(1.35); }
+.seta-painel { width: 16px; height: 16px; flex-shrink: 0; transition: transform .2s ease; }
+.nav-painel[open] .seta-painel { transform: rotate(180deg); }
+.painel-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 60;
+  min-width: 220px;
+  padding: 8px;
+  background: var(--branco);
+  color: var(--preto);
+  border-radius: var(--raio);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .6);
+}
+.painel-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.painel-menu a:hover, .painel-menu a:focus-visible { background: #d2d2d8; }
+.painel-menu img { width: 32px; height: 32px; border-radius: 6px; }
 
 .nav-toggle {
   display: none;
@@ -604,8 +638,9 @@ p.aviso { color: var(--branco); margin: 0; }
   .nav-logo { padding: 0 12px 0 16px; }
   .nav-logo img { width: 116px; }
   .nav-toggle { width: 44px; }
+  .nav-painel { margin-right: 10px; }
+  .seta-painel { display: none; }
   .nav-login {
-    margin-right: 10px;
     padding: 7px 10px;
     max-width: 92px;
     white-space: normal;

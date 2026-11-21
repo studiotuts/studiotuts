@@ -16,6 +16,17 @@
     });
   }
 
+  // Painel do cliente: fecha o menu de produtos ao clicar fora ou apertar Esc
+  var painel = document.querySelector('.nav-painel');
+  if (painel) {
+    document.addEventListener('click', function (e) {
+      if (painel.open && !painel.contains(e.target)) painel.open = false;
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && painel.open) { painel.open = false; painel.querySelector('summary').focus(); }
+    });
+  }
+
   // Animação de entrada
   var itens = document.querySelectorAll('.revelar');
   if ('IntersectionObserver' in window) {
