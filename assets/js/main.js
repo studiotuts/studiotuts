@@ -43,6 +43,69 @@
     });
   }
 
+  // Políticas de privacidade em janelas.
+  // Cada política tem um endereço próprio: privacidade.html#tuts-vex, #corre-certo,
+  // #controle-de-contas e #10estressa (abre a janela direto, útil para a Google Play).
+  var janelas = document.querySelectorAll('dialog.modal');
+  if (janelas.length) {
+    var suportaDialog = typeof janelas[0].showModal === 'function';
+    var abrir = function (id, gravarEndereco) {
+      var d = document.getElementById(id);
+      if (!d || d.tagName !== 'DIALOG') return;
+      if (!suportaDialog) { d.setAttribute('open', ''); d.scrollIntoView(); return; }
+      if (!d.open) d.showModal();
+      d.querySelector('.modal-corpo').scrollTop = 0;
+      document.body.classList.add('modal-aberto');
+      if (gravarEndereco && location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+    };
+    var limparEndereco = function () {
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    };
+
+    document.querySelectorAll('[data-politica]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        abrir(a.getAttribute('data-politica'), true);
+      });
+    });
+
+    janelas.forEach(function (d) {
+      d.addEventListener('close', function () {
+        document.body.classList.remove('modal-aberto');
+        limparEndereco();
+      });
+      // Fecha ao clicar fora da janela
+      d.addEventListener('click', function (e) {
+        if (e.target === d) d.close();
+      });
+      d.querySelectorAll('[data-fechar]').forEach(function (b) {
+        b.addEventListener('click', function () { d.close(); });
+      });
+      var copiar = d.querySelector('[data-copiar]');
+      if (copiar) {
+        copiar.addEventListener('click', function () {
+          var url = location.origin + location.pathname + '#' + d.id;
+          var rotulo = copiar.querySelector('span');
+          var feito = function () {
+            rotulo.textContent = 'Link copiado!';
+            setTimeout(function () { rotulo.textContent = 'Copiar link'; }, 2000);
+          };
+          if (navigator.clipboard) navigator.clipboard.writeText(url).then(feito, function () { prompt('Copie o link:', url); });
+          else prompt('Copie o link:', url);
+        });
+      }
+    });
+
+    var pelaUrl = function () {
+      var id = decodeURIComponent(location.hash.slice(1));
+      if (id) abrir(id, false);
+      else janelas.forEach(function (d) { if (d.open) d.close(); });
+    };
+    window.addEventListener('popstate', pelaUrl);
+    window.addEventListener('hashchange', pelaUrl);
+    pelaUrl();
+  }
+
   // Ano no rodapé
   var ano = document.getElementById('ano');
   if (ano) ano.textContent = new Date().getFullYear();

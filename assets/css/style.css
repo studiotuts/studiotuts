@@ -614,3 +614,225 @@ p.aviso { color: var(--branco); margin: 0; }
     font-size: .72rem;
   }
 }
+
+/* =========================================================
+   Atualização 21/11/2026
+   ========================================================= */
+
+/* ---------- Grade de produtos ---------- */
+
+.tres {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 36px);
+}
+
+.grade-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+  gap: clamp(28px, 3vw, 40px);
+  align-items: stretch;
+}
+.grade-produtos .produto { margin: 0 18px 18px 0; }
+
+.produto .destaque-capa {
+  height: 250px;
+  min-height: 0;
+  flex-shrink: 0;
+  gap: 18px;
+}
+.produto .destaque-capa h2 {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  height: 2.4em;
+  margin: 0;
+  font-family: var(--f-pixel);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2vw, 1.7rem);
+  letter-spacing: .03em;
+  line-height: 1.2;
+  text-align: center;
+}
+.produto .icone { width: 96px; height: 96px; }
+
+.produto-corpo { gap: 18px; }
+.produto-corpo .resumo { margin: 0; color: var(--branco); min-height: calc(1.65em * 4); }
+
+.detalhes { width: 100%; border-top: 1px solid var(--cinza-700); border-bottom: 1px solid var(--cinza-700); }
+.detalhes summary {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 2px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 500; font-size: .9rem;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--branco);
+}
+.detalhes summary::-webkit-details-marker { display: none; }
+.detalhes summary svg { width: 22px; height: 22px; transition: transform .25s ease; }
+.detalhes[open] summary svg { transform: rotate(180deg); }
+.detalhes summary:hover { color: #fff; }
+.detalhes-conteudo { padding: 4px 2px 18px; }
+.detalhes-conteudo p { color: var(--cinza-400); }
+.detalhes-conteudo .itens { margin: 14px 0 0; }
+.detalhes[open] .detalhes-conteudo { animation: abrir .3s ease; }
+@keyframes abrir { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+.produto-acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: auto; padding-top: 6px; }
+.produto-corpo .produto-acoes .btn { margin-top: 0; }
+
+/* ---------- WhatsApp fixo (celular) ---------- */
+
+.whats-fixo {
+  display: none;
+  position: fixed;
+  right: 16px; bottom: 16px;
+  z-index: 60;
+  width: 56px; height: 56px;
+  align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .5), 0 0 0 4px rgba(37, 211, 102, .18);
+  transition: transform .2s ease;
+}
+.whats-fixo svg { width: 30px; height: 30px; }
+.whats-fixo:active { transform: scale(.94); }
+
+/* ---------- Janelas das políticas ---------- */
+
+.modal {
+  width: min(820px, calc(100% - 32px));
+  max-width: none;
+  max-height: min(88vh, 900px);
+  padding: 0;
+  border: 1px solid var(--cinza-700);
+  border-radius: 14px;
+  background: var(--cinza-900);
+  color: var(--branco);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .7);
+  overflow: hidden;
+}
+.modal[open] { display: flex; flex-direction: column; animation: modal-entra .3s cubic-bezier(.2, .8, .2, 1); }
+.modal::backdrop { background: rgba(7, 7, 7, .72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+@keyframes modal-entra { from { opacity: 0; transform: translateY(24px) scale(.98); } to { opacity: 1; transform: none; } }
+
+.modal-topo {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 20px 20px 24px;
+  background: var(--grad-azul);
+  color: #fff;
+}
+.modal-topo .icone { width: 52px; height: 52px; font-size: .9rem; box-shadow: none; }
+.modal-titulos { flex: 1; min-width: 0; }
+.modal-topo h2 { font-family: var(--f-pixel); font-weight: 400; font-size: clamp(1.05rem, 2.2vw, 1.4rem); letter-spacing: .03em; line-height: 1.3; }
+.modal-topo p { margin: 4px 0 0; font-size: .85rem; opacity: .85; }
+
+.modal-fechar {
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; flex-shrink: 0;
+  border: 0; border-radius: 50%;
+  background: rgba(255, 255, 255, .14); color: #fff;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.modal-fechar:hover { background: rgba(255, 255, 255, .26); }
+.modal-fechar svg { width: 22px; height: 22px; }
+
+.modal-corpo { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 8px 28px 28px; }
+.modal-corpo.texto { padding-bottom: 28px; }
+.modal-corpo > * { max-width: none; }
+
+.modal-base {
+  display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--cinza-700);
+  background: var(--preto);
+}
+.modal-base .btn { min-height: 46px; padding: 10px 20px; }
+
+body.modal-aberto { overflow: hidden; }
+
+.texto h4 { font-size: 1rem; font-weight: 500; color: #fff; margin: 1.4em 0 .4em; }
+.texto code { font-size: .9em; padding: 2px 6px; border-radius: 4px; background: var(--cinza-700); color: var(--branco); }
+.tabela { overflow-x: auto; margin: 0 0 1em; }
+.tabela table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: .95rem; }
+.tabela th, .tabela td { padding: 10px 12px; border: 1px solid var(--cinza-700); text-align: left; vertical-align: top; color: #c3c3ca; }
+.tabela th { color: #fff; font-weight: 500; background: var(--cinza-800); }
+
+/* ---------- Página 404 ---------- */
+
+.erro { text-align: center; padding-block: clamp(48px, 7vw, 88px) clamp(56px, 8vw, 100px); }
+.erro-404 {
+  display: inline-flex; gap: clamp(14px, 3vw, 32px);
+  margin-bottom: clamp(30px, 5vw, 50px);
+  padding: 0 18px 18px 0;
+  border: 0; background: none;
+  cursor: pointer;
+  user-select: none; -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.erro-404:focus-visible { outline-offset: 10px; }
+.erro-404 .digito {
+  display: flex; align-items: center; justify-content: center;
+  width: clamp(80px, 17vw, 180px); height: clamp(106px, 22vw, 230px);
+  border-radius: var(--raio);
+  background: var(--grad-azul);
+  box-shadow: var(--pilha);
+  font-family: var(--f-pixel);
+  font-size: clamp(4rem, 13vw, 9.5rem);
+  line-height: 1;
+  color: #fff;
+  transition: transform .15s ease;
+}
+.erro-404:hover .digito { transform: translate(-2px, -2px); }
+.erro-404 .digito.tapa { animation: tapa .35s ease; }
+@keyframes tapa {
+  0% { transform: none; }
+  20% { transform: translate(10px, 4px) rotate(7deg) scale(.94); }
+  45% { transform: translate(-7px, -2px) rotate(-5deg); }
+  70% { transform: translate(3px, 0) rotate(2deg); }
+  100% { transform: none; }
+}
+.erro h1 { font-size: clamp(1.4rem, 2.8vw, 2.3rem); color: #fff; max-width: 22em; margin-inline: auto; }
+.erro-texto { color: var(--cinza-400); max-width: 580px; margin: 18px auto 0; }
+.placar {
+  display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px;
+  margin: 26px auto 0;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--cinza-900);
+  border: 1px solid var(--cinza-700);
+  font-size: .95rem;
+}
+.placar strong { font-family: var(--f-pixel); font-weight: 400; letter-spacing: .05em; color: #9db8ff; }
+.dica { min-height: 1.65em; margin: 18px auto 30px; color: #9db8ff; }
+.erro .acoes { justify-content: center; }
+
+.pa {
+  position: fixed; z-index: 70;
+  pointer-events: none;
+  padding: 6px 14px;
+  border: 3px solid #120d26;
+  border-radius: 6px;
+  background: #ff4a2b;
+  color: #fff;
+  font: 700 1.6rem var(--f-texto);
+  animation: pa .7s ease forwards;
+}
+@keyframes pa {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.4) rotate(-10deg); }
+  25% { opacity: 1; transform: translate(-50%, -60%) scale(1.15) rotate(-10deg); }
+  100% { opacity: 0; transform: translate(-50%, -150%) scale(1) rotate(-4deg); }
+}
+
+@media (max-width: 900px) {
+  .tres { grid-template-columns: 1fr; }
+  .whats-fixo { display: flex; }
+  .rodape-base { padding-bottom: 88px; }
+  .modal { width: 100%; max-height: 92vh; margin: auto 0 0; border-radius: 16px 16px 0 0; border-bottom: 0; }
+  .modal-corpo { padding: 4px 20px 24px; }
+  .modal-base { padding: 14px 20px; }
+  .modal-base .btn { flex: 1; }
+}
